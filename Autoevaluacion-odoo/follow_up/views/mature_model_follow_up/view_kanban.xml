@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mature_model_follow_up_kanban" model="ir.ui.view">
+        <field name="name">follow_up.mature_model_follow_up.kanban</field>
+        <field name="model">mm.proposed_action</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_card">
+                            <div class="kanban-field">
+                                <field name="evaluation_id"/>
+                            </div>
+                            <div class="kanban-field">
+                                <field name="responsible_name"/>
+                            </div>
+                            <div class="kanban-field">
+                                <field name="accomplishment_level"/>
+                            </div>
+                            <div class="kanban-field">
+                                <field name="action_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,83 @@
+<odoo>
+  <data>
+    <!-- Views -->
+    <record model="ir.ui.view" id="sevri_specifications_tree">
+      <field name="name">specification.tree</field>
+      <field name="model">sev.specification</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="description" />
+          <field name="classification_id" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sevri_specifications_kanban">
+      <field name="name">specification.kanban</field>
+      <field name="model">sev.specification</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="description" />
+          <field name="classification_id" />
+          <templates>
+            <t t-name="kanban-box">
+              <div class="o_kanban_record">
+                <div class="o_kanban_primary_left">
+                  <strong><field name="description" /></strong>
+                </div>
+                <div class="o_kanban_secondary_left">
+                  <div><strong>Clasificación:</strong> <field name="classification_id" /></div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sevri_specifications_form">
+      <field name="name">specification.form</field>
+      <field name="model">sev.specification</field>
+      <field name="arch" type="xml">
+        <form>
+          <div class="container mt-4">
+            <div class="card shadow-sm">
+              <div class="card-header bg-primary">
+                <h3 class="card-title mb-0 text-white">Información de Especificaciones</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="description" class="form-label fw-bold">Descripción</label>
+                      <field name="description" style="margin-left: 1rem;" required="1" placeholder="Ej. Especificaciones 2024" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="classification_id" class="form-label fw-bold">Clasificación</label>
+                      <field name="classification_id" style="margin-left: 1rem;" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Actions -->
+    <record model="ir.actions.act_window" id="sev_specifications_action">
+      <field name="name">Especificaciones</field>
+      <field name="res_model">sev.specification</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem
+      id="sev_specifications"
+      name="Especificaciones"
+      action="sev_specifications_action"
+      parent="sevri_root"
+    />
+  </data>
+</odoo>

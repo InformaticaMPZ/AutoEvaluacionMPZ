@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_sev_process_form" model="ir.ui.view">
+        <field name="name">sev.process.form</field>
+        <field name="model">sev.process</field>
+        <field name="arch" type="xml">
+            <form string="Proceso">
+                <sheet>
+                    <group>
+                        <field name="initial_date" />
+                        <field name="final_date" />
+                        <field name="status" />
+                    </group>
+                    <notebook>
+                        <page string="Actividades">
+                            <field name="activities">
+                                <tree>
+                                    <field name="title" string="Título" />
+                                    <field name="subtitle" string="Subtítulo" />
+                                    <field name="activity_date" string="Fecha de Actividad" />
+                                    <field name="dependency" string="Dependencia" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="title" string="Título" />
+                                        <field name="subtitle" string="Subtítulo" />
+                                        <field name="activity_date" string="Fecha de Actividad" />
+                                    </group>
+                                    <group>
+                                        <field name="dependency" string="Dependencia" />
+                                        <field name="procedure_to_follow"
+                                            string="Procedimiento a Seguir" />
+                                    </group>
+                                    <group>
+                                        <field name="department_id" string="Departamento" />
+                                    </group>
+                                    <!-- <group> -->
+                                    <notebook>
+                                        <page string="Eventos">
+                                            <field name="events">
+                                                <tree>
+                                                    <field name="description" />
+                                                    <field name="causes" />
+                                                    <field name="consequences" />
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <field name="description" string="Descripción" />
+                                                        <field name="causes" string="Causas" />
+                                                        <field name="consequences" string="Consecuencias" />
+                                                    </group>
+                                                    <group>
+                                                        <field name="event_type_id" string="Tipo de Evento" />
+                                                        <field name="event_classification_id" string="Clasificación" />
+                                                        <field name="event_specification_id" string="Especificación" />
+                                                    </group>
+                                                    <group>
+                                                        <field name="probability" string="Probabilidad" />
+                                                        <field name="impact" string="Impacto" />
+                                                        <field name="risk_level" string="Nivel de Riesgo" />
+                                                    </group>
+                                                    <group>
+                                                        <field name="existent_control_measures" string="Medidas de Control Existentes" />
+                                                    </group>
+                                                    <group>
+                                                        <field name="actitude" string="Actitud" />
+                                                        <field name="aptitude" string="Aptitud" />
+                                                        <field name="new_risk_level" string="Nuevo Nivel de Riesgo" />
+                                                        <field name="acceptance" string="Aceptación" />
+                                                    </group>
+                                                    <group>
+                                                        <field name="creation_date" string="Fecha de Creación" />
+                                                        <field name="last_update" string="Última Actualización" />
+                                                        <field name="status" string="Estado" />
+                                                    </group>
+                                                    <notebook>
+                                                    <page string="Acciones Propuestas">
+                                                        <field name="proposed_actions">
+                                                            <tree>
+                                                                <field name="description" />
+                                                                <field name="indicators" />
+                                                                <field name="responsible_name" />
+                                                                <field name="accomplishment_level" />
+                                                                <field name="justification" />
+                                                                <field name="action_date" />
+                                                            </tree>
+                                                            <form>
+                                                                <group>
+                                                                    <field name="description" string="Descripción" />
+                                                                    <field name="indicators" string="Indicadores" />
+                                                                    <field name="responsible_name" string="Responsable" />
+                                                                </group>
+                                                                <group>
+                                                                    <field name="accomplishment_level" string="Nivel de Cumplimiento" />
+                                                                    <field name="justification" string="Justificación" />
+                                                                    <field name="action_date" string="Fecha de Acción" />
+                                                                </group>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                    </notebook>
+                                                </form>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                    <!-- </group> -->
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

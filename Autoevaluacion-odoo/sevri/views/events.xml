@@ -1,0 +1,143 @@
+<odoo>
+  <data>
+    <!-- Vistas -->
+    <record model="ir.ui.view" id="sevri_event_tree">
+      <field name="name">Árbol de Eventos</field>
+      <field name="model">sev.event</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="activity_id" />
+          <field name="description" />
+          <!-- <field name="causes" />
+          <field name="consequences" />-->
+          <field name="event_type_id" />
+          <field name="probability" />
+          <field name="impact" />
+          <field name="risk_level" />
+         <!--   <field name="existent_control_measures" />-->
+         <!-- <field name="actitude" />-->
+          <field name="aptitude" />
+          <field name="new_risk_level" />
+          <field name="acceptance" />
+          <field name="creation_date" />
+          <!--  <field name="last_update" />-->
+          <field name="status" />
+       <!--   <field name="proposed_actions" />-->
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sevri_event_form">
+      <field name="name">Formulario de Evento</field>
+      <field name="model">sev.event</field>
+      <field name="arch" type="xml">
+        <form>
+          <div class="container mt-4">
+            <div class="card shadow-sm">
+              <div class="card-header bg-primary">
+                <h3 class="card-title mb-0 text-white">Información del Evento</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="activity_id" class="form-label fw-bold">Actividad</label>
+                      <field name="activity_id" style="margin-left: 1rem;" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="description" class="form-label fw-bold">Descripción</label>
+                      <field name="description" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="causes" class="form-label fw-bold">Causas</label>
+                      <field name="causes" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="consequences" class="form-label fw-bold">Consecuencias</label>
+                      <field name="consequences" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="event_type_id" class="form-label fw-bold">Tipo de Evento</label>
+                      <field name="event_type_id" style="margin-left: 1rem;" required="1" class="form-control"/>
+                    </div>
+                      <div class="mb-3">
+                      <label for="event_specification_id" class="form-label fw-bold">Especificación</label>
+                      <field name="event_specification_id" required="1" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="event_classification_id" class="form-label fw-bold">Clasificación</label>
+                      <field name="event_classification_id" required="1" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="probability" class="form-label fw-bold">Probabilidad</label>
+                      <field name="probability" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="impact" class="form-label fw-bold">Impacto</label>
+                      <field name="impact" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="risk_level" class="form-label fw-bold">Nivel de Riesgo</label>
+                      <field name="risk_level" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="existent_control_measures" class="form-label fw-bold">Medidas de Control Existentes</label>
+                      <field name="existent_control_measures" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="actitude" class="form-label fw-bold">Actitud</label>
+                      <field name="actitude" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="aptitude" class="form-label fw-bold">Aptitud</label>
+                      <field name="aptitude" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="new_risk_level" class="form-label fw-bold">Nuevo Nivel de Riesgo</label>
+                      <field name="new_risk_level" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="acceptance" class="form-label fw-bold">Aceptación</label>
+                      <field name="acceptance" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="creation_date" class="form-label fw-bold">Fecha de Creación</label>
+                      <field name="creation_date" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="last_update" class="form-label fw-bold">Última Actualización</label>
+                      <field name="last_update" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="status" class="form-label fw-bold">Estado</label>
+                      <field name="status" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="proposed_actions" class="form-label fw-bold">Acciones Propuestas</label>
+                      <field name="proposed_actions" required="1" class="form-control"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Acciones -->
+    <record model="ir.actions.act_window" id="sev_event_action">
+      <field name="name">Eventos</field>
+      <field name="res_model">sev.event</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Elementos de Menú -->
+    <menuitem
+      id="sev_events"
+      name="Eventos"
+      action="sev_event_action"
+      parent="sevri_root"
+    />
+  </data>
+</odoo>

@@ -1,0 +1,124 @@
+<odoo>
+  <data>
+    <!-- Vistas -->
+    <record model="ir.ui.view" id="sevri_activity_tree">
+      <field name="name">activity.tree</field>
+      <field name="model">sev.activity</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="title" />
+          <field name="subtitle" />
+          <field name="activity_date" />
+          <field name="dependency" />
+          <field name="procedure_to_follow" />
+          <field name="department_id" />
+          <field name="events" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sevri_activity_form">
+      <field name="name">activity.form</field>
+      <field name="model">sev.activity</field>
+      <field name="arch" type="xml">
+        <form>
+           <div class="container mt-4">
+            <div class="card shadow-sm">
+              <div class="card-header bg-primary">
+                <h3 class="card-title mb-0 text-white">Información de la Actividad</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="title" class="form-label fw-bold">Título</label>
+                      <field name="title" style="margin-left: 1rem;" required="1" placeholder="ej. Actividad 2024" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="subtitle" class="form-label fw-bold">Subtítulo</label>
+                      <field name="subtitle" style="margin-left: 1rem;" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="activity_date" class="form-label fw-bold">Fecha de la Actividad</label>
+                      <field name="activity_date" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="sevri_process_id" class="form-label fw-bold">Proceso</label>
+                      <field name="sevri_process_id" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="dependency" class="form-label fw-bold">Dependencia</label>
+                      <field name="dependency" style="margin-left: 1rem;" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="procedure_to_follow" class="form-label fw-bold">Procedimiento a Seguir</label>
+                      <field name="procedure_to_follow" style="margin-left: 1rem;" required="1" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                      <label for="department_id" class="form-label fw-bold">Departamento</label>
+                      <field name="department_id" style="margin-left: 1rem;" required="1" class="form-control"/>
+                    </div>
+                    <notebook>
+                      <page name="events" string="Eventos">
+                        <field name="events">
+                          <tree>
+                            <field name="description"/>
+                            <field name="causes"/>
+                            <field name="consequences"/>
+                          </tree>
+                        </field>
+                      </page>
+                    </notebook>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Vista Kanban -->
+    <record model="ir.ui.view" id="sevri_activity_kanban">
+      <field name="name">activity.kanban</field>
+      <field name="model">sev.activity</field>
+      <field name="arch" type="xml">
+        <kanban>
+          <field name="title" />
+          <field name="subtitle" />
+          <field name="activity_date" />
+          <field name="dependency" />
+          <field name="procedure_to_follow" />
+          <field name="department_id" />
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card">
+                <div class="oe_kanban_content">
+                  <strong><field name="title"/></strong><br/>
+                  <span><field name="activity_date"/></span><br/>
+                  <span><field name="dependency"/></span><br/>
+                  <span><field name="procedure_to_follow"/></span>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Acciones -->
+    <record model="ir.actions.act_window" id="sev_activity_action">
+      <field name="name">Actividades</field>
+      <field name="res_model">sev.activity</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem
+      id="sev_activities"
+      name="Actividades"
+      action="sev_activity_action"
+      parent="sevri_root"
+    />
+  </data>
+</odoo>

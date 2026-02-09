@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_autoevaluation_follow_up" model="ir.actions.act_window">
+        <field name="name">Autoevaluación</field>
+        <field name="res_model">ae.proposed_action</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_follow_up_root" name="Seguimiento" sequence="10"/>
+    <menuitem
+        id="menu_autoevaluation"
+        name="Autoevaluación"
+        parent="menu_follow_up_root"
+        action="action_autoevaluation_follow_up"
+        sequence="20"/>
+</odoo>

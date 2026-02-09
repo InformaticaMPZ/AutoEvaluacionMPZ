@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_autoevaluation_follow_up_graph" model="ir.ui.view">
+        <field name="name">ae.proposed_action.graph</field>
+        <field name="model">ae.proposed_action</field>
+        <field name="arch" type="xml">
+            <graph string="Seguimiento" type="bar">
+                <field name="accomplishment_level" type="row"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

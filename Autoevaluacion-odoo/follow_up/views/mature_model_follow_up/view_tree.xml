@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mature_model_follow_up_tree" model="ir.ui.view">
+        <field name="name">follow_up.mature_model_follow_up.tree</field>
+        <field name="model">mm.proposed_action</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="evaluation_id"/>
+                <field name="responsible_name"/>
+                <field name="accomplishment_level"/>
+                <field name="action_date"/>
+                <field name="attachment_name"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sev_proposed_action_search" model="ir.ui.view">
+            <field name="name">sev.proposed.action.search</field>
+            <field name="model">sev.proposed_action</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+
+                    <filter name="filter_accomplishment_yes" string="Completo" domain="[('accomplishment_level', '=', 'yes')]"/>
+                    <filter name="filter_accomplishment_no" string="No Completo" domain="[('accomplishment_level', '=', 'no')]"/>
+                    <filter name="filter_accomplishment_partial" string="Parcialmente Completo" domain="[('accomplishment_level', '=', 'partial')]"/>
+
+                    <filter name="filter_current_year" string="Año Actual"
+                         domain="[('action_date', '&gt;=', datetime.date(context_today().year, 1, 1).strftime('%Y-%m-%d')),
+                         ('action_date', '&lt;=', datetime.date(context_today().year, 12, 31).strftime('%Y-%m-%d'))]"/>
+
+                    <group name="group_by_event" string="Agrupar por Evento">
+                        <filter name="group_by_event" string="Evento" context="{'group_by':'event_id'}"/>
+                    </group>
+
+                    <group name="group_by_accomplishment" string="Agrupar por Nivel de Cumplimiento">
+                        <filter name="group_by_accomplishment" string="Nivel de Cumplimiento" context="{'group_by':'accomplishment_level'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

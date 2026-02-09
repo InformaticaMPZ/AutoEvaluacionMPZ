@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_sev_process_tree" model="ir.ui.view">
+        <field name="name">sev.process.tree</field>
+        <field name="model">sev.process</field>
+        <field name="arch" type="xml">
+            <tree string="Procesos">
+                    <header>
+                        <button 
+                            string="Enviar Notificación" 
+                            type="object" 
+                            name="send_notification_email" 
+                            class="btn-primary" 
+                            />
+                    </header>
+                    <field name="initial_date"/>
+                    <field name="final_date"/>
+                    <field name="status"/>
+                    <field name="activities"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

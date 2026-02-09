@@ -1,0 +1,49 @@
+<odoo>
+  <record id="view_mm_follow_up_form" model="ir.ui.view">
+    <field name="name">follow_up.mm_follow_up.form</field>
+    <field name="model">mm.proposed_action</field>
+    <field name="arch" type="xml">
+      <form string="Información de Acción Propuesta">
+        <sheet>
+          <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+            <p style="font-weight: bold;">SEGUIMIENTO DE ACCIÓN</p>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <div class="oe_title" style="
+                padding: 20px; 
+                border-radius: 8px; 
+                background-color: #ffffff; 
+                box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+                width: 100%;
+              ">
+                <group col="1">
+                  <group>
+                    <field name="observations" readonly="1" placeholder="Observaciones..." style="padding: 8px;"/>
+                    <field name="attachment" readonly="1" filename="attachment_name" widget="binary" style="padding: 8px;"/>
+                  </group>
+                  <group>
+                    <label for="accomplishment_level" string="Nivel de Cumplimiento" style="font-weight: bold; color: #555;"/>
+                    <field name="accomplishment_level" decoration-success="accomplishment_level == 'yes'" decoration-warning="accomplishment_level == 'partial'" 
+                    decoration-danger="accomplishment_level == 'no'" widget="badge" readonly="1" nolabel="1"/>
+                  </group>
+                </group>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset style="border: 1px solid #ddd; border-radius: 8px; padding: 15px;">
+            <group string="Detalles Generales" colspan="2" invisible="context.get('hide_details', False)">
+              <group>
+                <field name="description" readonly="1" placeholder="Descripción..." class="text-muted"/>
+                <field name="responsible_name" readonly="1" placeholder="Nombre del Responsable..." class="text-muted"/>
+                <field name="action_date" readonly="1" placeholder="Fecha de Acción..." class="text-muted"/>
+              </group>
+              <group>
+                <field name="indicators" readonly="1" placeholder="Indicadores..." class="text-muted"/>
+                <field name="justification" readonly="1" placeholder="Justificación..." class="text-muted"/>
+              </group>
+            </group>
+          </fieldset>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>

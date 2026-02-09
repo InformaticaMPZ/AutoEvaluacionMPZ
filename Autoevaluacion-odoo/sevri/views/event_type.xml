@@ -1,0 +1,99 @@
+<odoo>
+    <data>
+        <!-- Vistas -->
+        <record model="ir.ui.view" id="sevri_event_type_tree">
+            <field name="name">event_type.tree</field>
+            <field name="model">sev.event_type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="events"/>
+                    <field name="classifications" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sevri_event_type_form">
+            <field name="name">event_type.form</field>
+            <field name="model">sev.event_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container mt-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary">
+                                <h3 class="card-title mb-0 text-white">Información del Tipo de Evento</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label fw-bold">Nombre</label>
+                                            <field name="name" style="margin-left: 1rem;" required="1" placeholder="Ej. Tipo de Evento 2024" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label fw-bold">Descripción</label>
+                                            <field name="description" style="margin-left: 1rem;" required="1" class="form-control"/>
+                                        </div>
+                                        <notebook>
+                                            <page name="classifications" string="Clasificaciones">
+                                                <field name="classifications">
+                                                    <tree>
+                                                        <field name="description" />
+                                                        <field name="event_type_id" />
+                                                        <field name="specifications" />
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista Kanban -->
+        <record model="ir.ui.view" id="sevri_event_type_kanban">
+            <field name="name">event_type.kanban</field>
+            <field name="model">sev.event_type</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="events" />
+                    <field name="classifications" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_content">
+                                    <strong><field name="name"/></strong><br/>
+                                    <span><field name="description"/></span><br/>
+                                    <span><field name="events"/></span><br/>
+                                    <span><field name="classifications"/></span>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Acciones -->
+        <record model="ir.actions.act_window" id="sev_event_type_action">
+            <field name="name">Tipos de Evento</field>
+            <field name="res_model">sev.event_type</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!-- Menú -->
+        <menuitem
+            id="sev_event_types"
+            name="Tipos de Evento"
+            action="sev_event_type_action"
+            parent="sevri_root"
+        />
+    </data>
+</odoo>

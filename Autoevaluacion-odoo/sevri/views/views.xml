@@ -1,0 +1,8 @@
+<odoo>
+  <data>
+    <menuitem
+      id="sevri_root"
+      name="Sevri"
+    />
+  </data>
+</odoo>

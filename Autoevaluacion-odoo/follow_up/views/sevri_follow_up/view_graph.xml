@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_sevri_follow_up_graph" model="ir.ui.view">
+        <field name="name">follow_up.sevri_follow_up.graph</field>
+        <field name="model">sev.proposed_action</field>
+        <field name="arch" type="xml">
+            <graph string="Seguimiento">
+                <field name="action_date" type="row"/>
+                <field name="accomplishment_level" type="col"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+</odoo>

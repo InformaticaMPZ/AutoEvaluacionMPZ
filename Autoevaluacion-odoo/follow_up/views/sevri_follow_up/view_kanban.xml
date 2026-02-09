@@ -1,0 +1,44 @@
+<odoo>
+    <record id="view_sevri_follow_up_kanban" model="ir.ui.view">
+        <field name="name">follow_up.sevri_follow_up.kanban</field>
+        <field name="model">sev.proposed_action</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_card">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_title">
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_body">
+                                <div class="o_kanban_card_field o_kanban_card_field_event">
+                                    <field name="event_id"/>
+                                </div>
+                                <div class="o_kanban_card_field o_kanban_card_field_description">
+                                    <field name="description"/>
+                                </div>
+                                <div class="o_kanban_card_field o_kanban_card_field_indicators">
+                                    <field name="indicators"/>
+                                </div>
+                                <div class="o_kanban_card_field o_kanban_card_field_responsible">
+                                    <field name="responsible_name"/>
+                                </div>
+                                <div class="o_kanban_card_field o_kanban_card_field_accomplishment">
+                                    <field name="accomplishment_level"/>
+                                </div>
+                                <div class="o_kanban_card_field o_kanban_card_field_justification">
+                                    <field name="justification"/>
+                                </div>
+                                <div class="o_kanban_card_field o_kanban_card_field_action_date">
+                                    <field name="action_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,26 @@
+<odoo>
+  <record model="ir.ui.view" id="sevri_proposed_action_tree">
+    <field name="name">follow_up.sevri_follow_up.tree</field>
+    <field name="model">sev.proposed_action</field>
+    <field name="arch" type="xml">
+      <tree decoration-success="accomplishment_level=='yes'"
+        decoration-warning="accomplishment_level=='partial'"
+        decoration-danger="accomplishment_level=='no'">
+        <header>
+          <button name="generate_proposedAction_report" string="Generar reporte en Excel"
+            type="object" class="btn-primary" />
+          <button name="generate_proposedAction_report_PDF" string="Generar reporte en PDF"
+            type="object" class="btn-primary" />
+        </header>
+
+        <field name="event_id" />
+        <field name="responsible_name" />
+        <field name="accomplishment_level" />
+        <field name="action_date" />
+        <field name="attachments" widget="many2many_tags" options="{'color_field': 'id'}"
+          string="Adjuntos" />
+      </tree>
+    </field>
+  </record>
+
+</odoo>

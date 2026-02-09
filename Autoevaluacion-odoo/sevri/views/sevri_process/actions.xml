@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_sev_process_tree">
+        <field name="name">Proceso SEVRI</field>
+        <field name="res_model">sev.process</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem 
+        id="menu_sev_process_root" 
+        name="Proceso del SEVRI" 
+        action="action_sev_process_tree" 
+        parent="sevri_root"
+    /> 
+</odoo>

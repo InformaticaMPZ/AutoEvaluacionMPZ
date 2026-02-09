@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sev_activity_model,sev.sevri,model_sev_activity,base.group_user,1,1,1,1
+access_sev_classification_model,sev.sevri,model_sev_classification,base.group_user,1,1,1,1
+access_sev_event_model,sev.sevri,model_sev_event,base.group_user,1,1,1,1
+access_sev_proposed_action_model,sev.sevri,model_sev_proposed_action,base.group_user,1,1,1,1
+access_sev_event_type_model,sev.sevri,model_sev_event_type,base.group_user,1,1,1,1
+access_sev_specification_model,sev.sevri,model_sev_specification,base.group_user,1,1,1,1
+access_sev_user_model,sev.sevri,model_res_users,base.group_user,1,1,1,1
+access_sev_unit_model,sev.sevri,model_sci_unit,base.group_user,1,1,1,1
+access_sev_department_model,sev.sevri,model_hr_department,base.group_user,1,1,1,1

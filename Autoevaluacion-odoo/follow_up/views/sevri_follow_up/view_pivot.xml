@@ -1,0 +1,14 @@
+<odoo>
+<record model="ir.ui.view" id="view_sevri_follow_up_pivot">
+    <field name="name">follow_up.sevri_follow_up.pivot</field>
+    <field name="model">sev.proposed_action</field>
+    <field name="arch" type="xml">
+        <pivot string="Acciones Propuestas">
+            <field name="event_id"/>
+            <field name="responsible_name"/>
+            <field name="accomplishment_level"/>
+            <field name="action_date"/>
+        </pivot>
+    </field>
+</record>
+</odoo>
