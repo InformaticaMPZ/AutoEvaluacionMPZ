@@ -24,11 +24,11 @@ const ActivityForm = ({ activity }: { activity?: Activity }) => {
 
     const router = useRouter()
 
-    const handleSubmit = (values: Activity) => {
-        saveActivity(values).then((result) => {
-            setEditMode(false)
-            router.push(`/sevri-survey/${result?.id}`)
-        })
+    const handleSubmit = async (values: Activity) => {
+        const result = await saveActivity(values)
+        if (!result?.id) return
+        setEditMode(false)
+        router.push(`/sevri-survey/${result.id}`)
     }
 
     const handleOpen = (onOpen: () => void, event?: Event) => {
@@ -64,7 +64,7 @@ const ActivityForm = ({ activity }: { activity?: Activity }) => {
         <div className="min-h-screen bg-gradient-to-b from-[#001440] to-[#00102E]">
             <div className="container mx-auto px-4 py-6 max-w-4xl">
                 <header className="flex items-center justify-between mb-6">
-                <Link
+                    <Link
                         href="/sevri-survey"
                         className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all duration-300 shadow-md"
                     >

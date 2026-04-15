@@ -20,15 +20,28 @@ export const getLastQuestionWithoutAnswer = (evaluation: Evaluation, department_
     return questionWithoutAnswer;
 };
 export const calculateScore = (evaluation: Evaluation, department_id: number): number => {
-    const department = evaluation.departments.find(department => department.id === department_id);
-    if (!department) return 0;
-    const answers = evaluation.sections.flatMap(section => section.questions).flatMap(question => question.options).flatMap(option => option.answers).filter(answer => answer.department_id === department_id && answer.evaluation_id === evaluation.id);
-    const score = answers.reduce((acc, answer) => {
-        const option = evaluation.sections.flatMap(section => section.questions).flatMap(question => question.options).find(option => option.id === answer.option_id);
-        return acc + (option ? Number(option.value) : 0);
-    }, 0);
-    const maxScore = answers.length * 5;
-    return (score / maxScore) * 100;
+  const department = evaluation.departments.find(department => department.id === department_id);
+  if (!department) return 0;
+
+  const answers = evaluation.sections
+    .flatMap(section => section.questions)
+    .flatMap(question => question.options)
+    .flatMap(option => option.answers)
+    .filter(answer => answer.department_id === department_id && answer.evaluation_id === evaluation.id);
+
+  const score = answers.reduce((acc, answer) => {
+    const option = evaluation.sections
+      .flatMap(section => section.questions)
+      .flatMap(question => question.options)
+      .find(option => option.id === answer.option_id);
+
+    return acc + (option ? Number(option.value) : 0);
+  }, 0);
+
+  const maxScore = answers.length * 5;
+  if (maxScore === 0) return 0;
+
+  return (score / maxScore) * 100;
 }
 export const evaluationIsCompleted = (evaluation: Evaluation, department_id: number): boolean => {
     const answers = evaluation.sections.flatMap(section => section.questions).flatMap(question => question.options).flatMap(option => option.answers).filter(answer => answer.department_id === department_id && answer.evaluation_id === evaluation.id);

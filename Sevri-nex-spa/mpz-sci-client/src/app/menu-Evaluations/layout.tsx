@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
@@ -16,12 +16,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     verifyToken().then((result) => {
       if (result !== "success") {
-        router.replace("/login")
+        router.replace("/") // 🔥 CAMBIO CLAVE
       }
     })
   }, [])
 
-  if (!mounted) return null   // 👈 CLAVE
+  if (!mounted) return null
 
   const handleSignOut = () => {
     Cookies.remove("token")

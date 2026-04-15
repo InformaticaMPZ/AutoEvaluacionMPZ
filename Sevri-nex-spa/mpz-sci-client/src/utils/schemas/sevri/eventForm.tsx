@@ -43,19 +43,19 @@ export const eventValidationSchema = Yup.object({
         .trim("La descripción no puede contener solo espacios")
         .required('La descripción es requerida'),
     event_classification_id: Yup.number()
-        .not([0], "Debe seleccionar una clasificación válida")
+        .notOneOf([0], "Debe seleccionar una clasificación válida")
         .required('La clasificación es requerida'),
     event_specification_id: Yup.number()
-        .not([0], "Debe seleccionar una especificación válida")
+        .notOneOf([0], "Debe seleccionar una especificación válida")
         .required('La especificación es requerida'),
     event_type_id: Yup.number()
-        .not([0], "Debe seleccionar un tipo de evento válido")
+        .notOneOf([0], "Debe seleccionar un tipo de evento válido")
         .required('El tipo de evento es requerido'),
     impact: Yup.number()
-        .not([0], "Debe seleccionar un impacto válido")
+        .notOneOf([0], "Debe seleccionar un impacto válido")
         .required('El impacto es requerido'),
     probability: Yup.number()
-        .not([0], "Debe seleccionar una probabilidad válida")
+        .notOneOf([0], "Debe seleccionar una probabilidad válida")
         .required('La probabilidad es requerida'),
     risk_level: Yup.string()
         .trim("El nivel de riesgo no puede contener solo espacios")
@@ -93,14 +93,14 @@ export const getInitialValuesEvent = (activity_id: string, editedEvent?: Event) 
         aptitude: editedEvent?.aptitude || "0",
         causes: editedEvent?.causes || "",
         consequences: editedEvent?.consequences || "",
-        creation_date: editedEvent?.creation_date || new Date().toISOString(),
+        creation_date: editedEvent?.creation_date || new Date().toISOString().split("T")[0],
         description: editedEvent?.description || "",
         event_classification_id: editedEvent?.event_classification_id || 0,
         event_specification_id: editedEvent?.event_specification_id || 0,
         event_type_id: editedEvent?.event_type_id || 0,
         id: editedEvent?.id || undefined,
         impact: editedEvent?.impact || 0,
-        last_update: new Date().toISOString(),
+        last_update: new Date().toISOString().split("T")[0],
         probability: editedEvent?.probability || 0,
         risk_level: editedEvent?.risk_level || "low",
         status: editedEvent?.status || "active",

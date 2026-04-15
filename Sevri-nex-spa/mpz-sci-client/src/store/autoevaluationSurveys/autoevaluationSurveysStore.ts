@@ -22,7 +22,7 @@ interface AutoevaluationSurveyStore {
 }
 export const useAutoevaluationState = create<AutoevaluationSurveyStore>((set) => ({
   actualSurvey: {} as Survey,
-  axie_id: 0,
+  // axie_id: 0,
   actualAxie: {} as Axie,
   historySurveys: [],
   actualHistorySurvey: {} as Survey,

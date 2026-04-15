@@ -1,10 +1,16 @@
 import logging
 from odoo.http import request
 from .event_service import EventService
-from ...shared.utils.date_util import date_to_string
+from datetime import date, datetime
 
 _logger = logging.getLogger(__name__)
 
+def date_to_string(value):
+    if not value:
+        return None
+    if isinstance(value, (date, datetime)):
+        return value.strftime("%Y-%m-%d")
+    return str(value)
 
 class ActivityService:
     @staticmethod

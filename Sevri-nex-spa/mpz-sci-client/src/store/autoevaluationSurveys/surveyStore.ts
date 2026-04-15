@@ -3,6 +3,7 @@ import { Answer, Question, Section } from "@/types/autoevaluationSurvey";
 import { create } from "zustand";
 
 interface SurveyStore {
+    isCompleted: any;
     isLoading: boolean,
     setIsLoading: (value: boolean) => void,
     isFinished: boolean,
@@ -20,6 +21,7 @@ interface SurveyStore {
 
 }
 export const useSurveyState = create<SurveyStore>((set, get) => ({
+    isCompleted: false,
     actualQuestion: {} as Question,
     actualSection: 1,
     isFinished: false,

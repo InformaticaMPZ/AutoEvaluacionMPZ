@@ -11,7 +11,7 @@ interface CustomAutoCompleteProps<T> {
 }
 
 const CustomAutoComplete = <T,>({ label, name, options, className, placeholder, allowCustomValue }: CustomAutoCompleteProps<T>) => {
-    const { setFieldValue, values } = useFormikContext<Record<string, any>>();
+    const { setFieldValue} = useFormikContext<Record<string, any>>();
     const [field, meta] = useField(name);
     const onSelectionChange = (key: React.Key | null) => {
         if (key !== null) {

@@ -99,7 +99,7 @@ export const useSevriStore = create<SevriStore>((set) => ({
     return response;
   },
   getEventTypes: async () => {
-    const response = await fetchData<EventType[]>("/api/v1/sevri/eventType");
+    const response = await fetchData<EventType[]>("/api/v1/sevri/eventTypes");
     if (!response.length) return null;
     set({ eventTypes: response });
     return response;

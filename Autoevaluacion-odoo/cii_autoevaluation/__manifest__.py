@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "autoevaluation",
+    'name': "CII Autoevaluation",
 
     'summary': "Municipal Self-Evaluation System",
 

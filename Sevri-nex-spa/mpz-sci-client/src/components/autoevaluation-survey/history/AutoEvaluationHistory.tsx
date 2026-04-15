@@ -13,16 +13,30 @@ function AutoEvaluationHistory({ evaluation }: { evaluation: Survey }) {
     const { department_id } = useGlobalState();
     const { isOpen, onClose, onOpen } = useDisclosure();
 
-    const handleDownloadFile = (documentContent: string, fileName: string, fileType: string) => {
-        const fileBlob = new Blob([Buffer.from(documentContent, 'base64')], { type: fileType });
-        const fileUrl = URL.createObjectURL(fileBlob);
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    const handleDownloadFile = (
+        documentContent: string,
+        fileName: string,
+        fileType: string
+    ) => {
+        const byteCharacters = atob(documentContent)
+        const byteNumbers = new Array(byteCharacters.length)
+
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i)
+        }
+
+        const byteArray = new Uint8Array(byteNumbers)
+        const fileBlob = new Blob([byteArray], { type: fileType })
+        const fileUrl = URL.createObjectURL(fileBlob)
+
+        const link = document.createElement('a')
+        link.href = fileUrl
+        link.download = fileName
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(fileUrl)
+    }
 
     return (
         <div className="w-[95%] mx-auto my-6 bg-white border border-gray-300 text-primary-600 rounded-lg shadow-lg p-5">

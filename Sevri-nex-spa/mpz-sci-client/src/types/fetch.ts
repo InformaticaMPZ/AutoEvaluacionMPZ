@@ -1,9 +1,11 @@
 export type MethodType = "GET" | "POST" | "PUT" | "DELETE";
+
 export interface BodyType {
-    method: MethodType,
-    body: string
+  method: MethodType;
+  body?: string;
 }
-export interface AnswerQueueData{
-    action: MethodType,
-    question_id: number,
-  }
+
+export interface AnswerQueueData {
+  action: MethodType;
+  question_id: number;
+}

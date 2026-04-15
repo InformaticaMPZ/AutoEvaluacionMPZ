@@ -21,9 +21,13 @@ export default function RootLayout({ children, params }: Readonly<{ children: Re
     await getActualSevriProcess()
     setLoading(false)
   }
-  useEffect(() => {
-    fetchActualSevriProcess()
-  }, [])
+ useEffect(() => {
+  fetchActualSevriProcess().then(() => {
+    if (!actualSevriProcess.id) {
+      router.replace("/menu-Evaluations");
+    }
+  });
+}, []);
   const handleSignOut = () => {
     Cookies.remove("token");
     localStorage.clear()

@@ -4,6 +4,14 @@ import { ProposedAction as AutoEvaluationProposedAction } from "@/types/autoeval
 import { ResponseAPI, ProposedAction as SevriProposedActions } from "@/types/sevri";
 import { create } from 'zustand'
 import { useGlobalState } from "../globalState";
+
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(/\/$/, "");
+
+const buildApiUrl = (path: string) => {
+    if (!API_BASE) return path;
+    return `${API_BASE}${path}`;
+};
+
 export type ModelFilters = {
     autoEvaluation: boolean
     matureModel: boolean
@@ -61,7 +69,7 @@ export const useFollowUpState = create<FollowUpStore>((set, get) => ({
         localStorage.setItem("savedModelFilters", JSON.stringify(DEFAULT_MODEL_FILTERS))
     },
     updateMatureModelProposedAction: async (data: MatureModelProposedActions) => {
-        const response = await fetchData<ResponseAPI<MatureModelProposedActions>>( `https://odoo.perezzeledon.go.cr/api/v1/evaluations/proposedActions/${data.id}`, "PUT", {
+        const response = await fetchData<ResponseAPI<MatureModelProposedActions>>(buildApiUrl(`/api/v1/mature-model/proposed-actions/${data.id}`), "PUT", {
             method: 'PUT',
             body: JSON.stringify(data)
         })
@@ -72,7 +80,7 @@ export const useFollowUpState = create<FollowUpStore>((set, get) => ({
         return updatedProposedAction
     },
     updateAutoEvaluationProposedAction: async (data: AutoEvaluationProposedAction) => {
-        const response = await fetchData<ResponseAPI<AutoEvaluationProposedAction>>( `https://odoo.perezzeledon.go.cr/api/v1/autoevaluation/proposedActions/${data.id}`, "PUT", {
+        const response = await fetchData<ResponseAPI<AutoEvaluationProposedAction>>(buildApiUrl(`/api/v1/autoevaluation/proposed-actions/${data.id}`), "PUT", {
             method: 'PUT',
             body: JSON.stringify(data)
         })
@@ -84,11 +92,11 @@ export const useFollowUpState = create<FollowUpStore>((set, get) => ({
         return updatedProposedAction
     },
     updateSevriProposedAction: async (data: SevriProposedActions) => {
-        const response = await fetchData<ResponseAPI<SevriProposedActions>>( `https://odoo.perezzeledon.go.cr/api/v1/sevri/proposedActions/${data.id}`, "PUT", {
+        const response = await fetchData<ResponseAPI<SevriProposedActions>>(buildApiUrl(`/api/v1/autoevaluation-survey/proposed-actions/${data.id}`), "PUT", {
             method: 'PUT',
             body: JSON.stringify(data)
         })
-       
+
         if (response.status !== 200) return null
         const updatedProposedAction = response.data
         const sevriProposedActions = get().sevriProposedActions.map(proposedAction => proposedAction.id === updatedProposedAction.id ? updatedProposedAction : proposedAction)
@@ -96,7 +104,7 @@ export const useFollowUpState = create<FollowUpStore>((set, get) => ({
         return updatedProposedAction
     },
     getSevriProposedActions: async () => {
-        const response = await fetchData<ResponseAPI<SevriProposedActions[]>>( `https://odoo.perezzeledon.go.cr/api/v1/sevri/proposedActions?department_id=${useGlobalState.getState().department_id}`)
+        const response = await fetchData<ResponseAPI<SevriProposedActions[]>>(buildApiUrl(`/api/v1/sevri/proposed-actions?department_id=${useGlobalState.getState().department_id}`))
         console.log(response)
         if (response.status !== 200) return null
         console.log(response)
@@ -104,13 +112,13 @@ export const useFollowUpState = create<FollowUpStore>((set, get) => ({
         return response.data
     },
     getMatureModelProposedActions: async () => {
-        const response = await fetchData<ResponseAPI<MatureModelProposedActions[]>>( `https://odoo.perezzeledon.go.cr/api/v1/evaluations/proposedActions?department_id=${useGlobalState.getState().department_id}`)
+        const response = await fetchData<ResponseAPI<MatureModelProposedActions[]>>(buildApiUrl(`/api/v1/mature-model/proposed-actions?department_id=${useGlobalState.getState().department_id}`))
         if (response.status !== 200) return null
         set({ matureModelProposedActions: response.data })
         return response.data
     },
     getAutoEvaluationProposedActions: async () => {
-        const response = await fetchData<ResponseAPI<AutoEvaluationProposedAction[]>>( `https://odoo.perezzeledon.go.cr/api/v1/autoevaluation/proposedActions?department_id=${useGlobalState.getState().department_id}`)
+        const response = await fetchData<ResponseAPI<AutoEvaluationProposedAction[]>>(buildApiUrl(`/api/v1/autoevaluation-survey/proposed-actions?department_id=${useGlobalState.getState().department_id}`))
         if (response.status !== 200) return null
         set({ autoEvaluationProposedActions: response.data })
         return response.data

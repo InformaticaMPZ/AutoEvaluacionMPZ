@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Card({ title, description, onClick }: { title: string, description: string, onClick: () => void }) {
+function Card({ title, description, onClick }: { title: string, description: string, onClick?: () => void }) {
     return (
         <div onClick={onClick} className={`bg-white cursor-pointer hover:bg-slate-200 h-40 place-content-center rounded-md  hover:scale-105 ease-in-out duration-100  text-balance text-primary-800 font-semibold shadow-sm shadow-dark_primary-900 border-b-8 border-primary-400 hover:border-primary-800`}
         >

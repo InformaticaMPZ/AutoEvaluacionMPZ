@@ -2,25 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 const unprotectedRoutes = [
-  "/login",
+  "/",
   "/api/auth",
-  "/api/auth"
+  "/api/v1/token/verify",
 ];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (unprotectedRoutes.some(route => pathname.startsWith(route))) {
+  if (unprotectedRoutes.some((route) => pathname === route || pathname.startsWith(route + "/"))) {
     return NextResponse.next();
   }
 
   const token = req.cookies.get("token");
 
   if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   try {
+    if (!process.env.JWT_SECRET_KEY) {
+      throw new Error("JWT_SECRET_KEY no definido");
+    }
+
     const { payload } = await jwtVerify(
       token.value,
       new TextEncoder().encode(process.env.JWT_SECRET_KEY)
@@ -29,13 +33,18 @@ export async function middleware(req: NextRequest) {
     if (!payload.department) {
       return new NextResponse(
         JSON.stringify({ error: "Usuario sin departamento" }),
-        { status: 403 }
+        {
+          status: 403,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
     }
 
     return NextResponse.next();
   } catch (err) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 }
 
@@ -45,11 +54,9 @@ export const config = {
     "/autoevaluation-surveys/:path*",
     "/mature-model/:path*",
     "/sevri-survey/:path*",
-    "/api/protected/:path*"
-  ]
+    "/api/protected/:path*",
+  ],
 };
-
-
 // import { NextRequest, NextResponse } from "next/server";
 // import { jwtVerify } from "jose";
 

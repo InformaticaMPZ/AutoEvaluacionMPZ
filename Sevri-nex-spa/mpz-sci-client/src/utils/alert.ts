@@ -79,7 +79,7 @@ export const showInfoAlert = (title: string, text: string) => Swal.fire({
 //         }
 //     });
 // }
-export const showConfirmAlert = (title: string, text: string, callback: Function) => Swal.fire({
+export const showConfirmAlert = (title: string, text: string, callback: () => void) => Swal.fire({
     title,
     text,
     icon: 'warning',

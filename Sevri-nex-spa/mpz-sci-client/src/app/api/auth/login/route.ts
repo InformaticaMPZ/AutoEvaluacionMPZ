@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 import { SignJWT } from "jose";
 
-export const runtime = "nodejs";
-
 export async function POST(req: Request) {
   try {
-
     const { login, password } = await req.json();
 
     const response = await fetch(`${process.env.ODOO_URL}/web/session/authenticate`, {
@@ -17,7 +14,7 @@ export async function POST(req: Request) {
         jsonrpc: "2.0",
         method: "call",
         params: {
-          db: "sevri",
+          db: process.env.ODOO_DB,
           login,
           password
         },
@@ -27,44 +24,42 @@ export async function POST(req: Request) {
 
     const data = await response.json();
 
-    if (!data.result) {
+    if (data.error || !data.result?.uid) {
       return NextResponse.json(
         { error: "Credenciales incorrectas" },
         { status: 401 }
       );
     }
 
-    const user = data.result;
-
-    const secret = new TextEncoder().encode(
-      process.env.JWT_SECRET_KEY
-    );
-
-    const jwt = await new SignJWT({
-      user_id: user.uid,
-      email: user.username
+    const token = await new SignJWT({
+      email: data.result.username || login,
+      user_id: data.result.uid,
+      department: null,
+      department_name: null
     })
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
       .setExpirationTime("1h")
-      .sign(secret);
+      .sign(new TextEncoder().encode(process.env.JWT_SECRET_KEY!));
 
     const res = NextResponse.json({
-      success: true
+      success: true,
+      user: {
+        id: data.result.uid,
+        login: data.result.username || login,
+        name: data.result.name || login
+      }
     });
 
-    res.cookies.set("token", jwt, {
+    res.cookies.set("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production"
     });
 
     return res;
-
   } catch (error) {
-
     console.error("AUTH ERROR:", error);
 
     return NextResponse.json(

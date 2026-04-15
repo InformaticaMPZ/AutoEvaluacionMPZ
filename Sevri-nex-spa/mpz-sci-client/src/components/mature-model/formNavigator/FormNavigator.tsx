@@ -4,7 +4,7 @@ import QuestionBadge from './QuestionBadge'
 import { useEvaluationState } from '@/store/matureModel/evaluationStore'
 function FormNavigator() {
     const { actualEvaluation } = useEvaluationState()
-    const sections = actualEvaluation.sections
+    const sections = actualEvaluation?.sections || []
     return (
         <div className="w-60 bg-dark  border text-primary-500 justify-center py-4 px-8 rounded-lg shadow-md shadow-gray-300">
             <div className="text-lg font-bold rounded-md">

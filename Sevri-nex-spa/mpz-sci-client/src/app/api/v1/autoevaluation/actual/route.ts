@@ -7,9 +7,7 @@ export async function GET(_req: NextRequest) {
       "/api/v1/autoevaluation-survey/survey/actual"
     );
 
-    // Siempre 200
     return NextResponse.json(response, { status: 200 });
-
   } catch (error) {
     console.error("AUTOEVALUATION ACTUAL ERROR:", error);
 

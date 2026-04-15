@@ -4,10 +4,11 @@ export interface Survey {
   description: string;
   departments: Department[];
   axies: Axie[];
-  initial_date: Date;
-  final_date: Date;
+  initial_date: string;
+  final_date: string;
   proposed_actions: ProposedAction[];
 }
+
 export interface ProposedAction {
   id: number;
   user_id: number;
@@ -18,12 +19,22 @@ export interface ProposedAction {
   responsible_name: string;
   accomplishment_level: "yes" | "no" | "partial";
   justification: string;
-  action_date: Date;
-
+  action_date: string;
+  observations?: string;
+  attachments?: FileAttachment[];
 }
+
+export interface FileAttachment {
+  attachment: string;
+  name: string;
+  attachment_type: string;
+  description?: string;
+}
+
 export interface Department {
   id: number;
 }
+
 export interface Axie {
   id: number;
   title: string;
@@ -31,13 +42,14 @@ export interface Axie {
   description: string;
   sections: Section[];
 }
+
 export interface Section {
   id: number;
   title: string;
   survey_id: number;
   questions: Question[];
   description: string;
-  selected: boolean
+  selected: boolean;
 }
 
 export interface Question {
@@ -48,13 +60,11 @@ export interface Question {
   answers: Answer[];
 }
 
-
-
 export interface Answer {
   response: ResponseType;
   document: string;
-  file_name: string;
-  mime_type: string;
+  file_name?: string;
+  mime_type?: string;
   observations: string;
   question_id: number;
   axie_id: number;
@@ -62,10 +72,12 @@ export interface Answer {
   department_id: number;
   id: number;
 }
+
 export interface DepartmentSurvey {
   department_id: number;
   survey_id: number;
   status: "pending" | "completed" | "finished";
   score: number;
 }
+
 type ResponseType = "yes" | "no";

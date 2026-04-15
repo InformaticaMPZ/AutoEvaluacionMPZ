@@ -20,7 +20,7 @@ export interface FollowUpFormProps {
     user_id?: number;
     responsible_name: string;
     responsible_email: string;
-    action_date: Date;
+    action_date: string; // Cambia a string para manejar la fecha en el formulario
     justification: string;
     modelType: "autoEvaluation" | "matureModel" | "sevri";
 

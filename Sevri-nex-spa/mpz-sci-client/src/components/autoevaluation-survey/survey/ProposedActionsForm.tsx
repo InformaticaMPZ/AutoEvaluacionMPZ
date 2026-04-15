@@ -144,7 +144,7 @@ function ProposedActionsForm({ onClose }: { onClose: () => void }) {
                           indicators: '',
                           responsible_name: '',
                           accomplishment_level: 'no',
-                          action_date: new Date().toISOString(),
+                          action_date: new Date().toISOString().split("T")[0],
                         });
                         setActiveTab(values.proposed_actions.length);
                       }}

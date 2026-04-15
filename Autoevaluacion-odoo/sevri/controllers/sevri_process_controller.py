@@ -1,12 +1,20 @@
+# -*- coding: utf-8 -*-
+
 import json
 import logging
+from datetime import datetime
 from odoo.http import Controller, Response, request, route
 from ..services.sevri_process_service import SevriProcessService
-from ...shared.utils.response import create_json_response
-from datetime import datetime
-
 
 _logger = logging.getLogger(__name__)
+
+
+def create_json_response(data=None, status=200, message="OK"):
+    return json.dumps({
+        "data": data if data is not None else [],
+        "status": status,
+        "message": message,
+    })
 
 
 class SevriProcessController(Controller):
@@ -31,9 +39,11 @@ class SevriProcessController(Controller):
                     ]
                 )
             )
+
             if evaluation_processes:
                 evaluation_process = SevriProcessService.compare_dates(
-                    evaluation_processes, current_date
+                    evaluation_processes,
+                    current_date,
                 )
                 if evaluation_process:
                     return Response(
@@ -41,17 +51,25 @@ class SevriProcessController(Controller):
                         content_type="application/json;charset=utf-8",
                         status=200,
                     )
+
             return Response(
                 create_json_response(
-                    data=[], status=404, message="No active sevri process"
+                    data=[],
+                    status=404,
+                    message="No active sevri process",
                 ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
+
         except Exception as e:
-            _logger.error(f"Error getting actual sevri processes: {str(e)}")
+            _logger.error("Error getting actual sevri processes: %s", str(e))
             return Response(
-                create_json_response(data=[], status=404, message=str(e)),
+                create_json_response(
+                    data=[],
+                    status=404,
+                    message=str(e),
+                ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
@@ -65,26 +83,44 @@ class SevriProcessController(Controller):
     )
     def get_sevri_processes(self, department_id):
         try:
-            activities = request.env["sev.activity"].sudo().search([("department_id.id", "=", department_id)])
-            logging.info(f"Activities: {activities}")
+            activities = request.env["sev.activity"].sudo().search(
+                [("department_id.id", "=", department_id)]
+            )
+            _logger.info("Activities: %s", activities)
+
             if not activities:
                 return Response(
-                    create_json_response(data=[], status=200, message="No activities found"),
+                    create_json_response(
+                        data=[],
+                        status=404,
+                        message="No activities found",
+                    ),
                     content_type="application/json;charset=utf-8",
                     status=404,
                 )
+
             sevri_process_ids = activities.mapped("sevri_process_id.id")
-            sevri_processes = request.env["sev.process"].sudo().search([("id", "in", sevri_process_ids), ("status", "!=", "active")])
-            sevri_process_parsed = SevriProcessService.parse_sevri_processes(sevri_processes)
+            sevri_processes = request.env["sev.process"].sudo().search(
+                [("id", "in", sevri_process_ids), ("status", "!=", "active")]
+            )
+            sevri_process_parsed = SevriProcessService.parse_sevri_processes(
+                sevri_processes
+            )
+
             return Response(
                 create_json_response(data=sevri_process_parsed, status=200),
                 content_type="application/json;charset=utf-8",
                 status=200,
             )
+
         except Exception as e:
-            _logger.error(f"Error getting sevri processes: {str(e)}")
+            _logger.error("Error getting sevri processes: %s", str(e))
             return Response(
-                create_json_response(data=[], status=404, message=str(e)),
+                create_json_response(
+                    data=[],
+                    status=404,
+                    message=str(e),
+                ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
@@ -101,15 +137,22 @@ class SevriProcessController(Controller):
             sevri_process = SevriProcessService.post_sevri_process(**kwargs)
             return Response(
                 create_json_response(
-                    data=sevri_process, status=201, message="Sevri process created"
+                    data=sevri_process,
+                    status=201,
+                    message="Sevri process created",
                 ),
                 content_type="application/json;charset=utf-8",
                 status=201,
             )
+
         except Exception as e:
-            _logger.error(f"Error creating sevri process: {str(e)}")
+            _logger.error("Error creating sevri process: %s", str(e))
             return Response(
-                create_json_response(data=[], status=404, message=str(e)),
+                create_json_response(
+                    data=[],
+                    status=404,
+                    message=str(e),
+                ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
@@ -126,17 +169,24 @@ class SevriProcessController(Controller):
             data = json.loads(request.httprequest.data)
 
             sevri_process = SevriProcessService.update_sevri_process(
-                sevri_process_id, data
+                sevri_process_id,
+                data,
             )
+
             return Response(
                 create_json_response(data=sevri_process, status=200),
                 content_type="application/json;charset=utf-8",
                 status=200,
             )
+
         except Exception as e:
-            _logger.error(f"Error updating sevri process: {str(e)}")
+            _logger.error("Error updating sevri process: %s", str(e))
             return Response(
-                create_json_response(data=[], status=404, message=str(e)),
+                create_json_response(
+                    data=[],
+                    status=404,
+                    message=str(e),
+                ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
@@ -158,13 +208,19 @@ class SevriProcessController(Controller):
                 content_type="application/json;charset=utf-8",
                 status=200,
             )
+
         except Exception as e:
-            _logger.error(f"Error deleting sevri process: {str(e)}")
+            _logger.error("Error deleting sevri process: %s", str(e))
             return Response(
-                create_json_response(data=[], status=404, message=str(e)),
+                create_json_response(
+                    data=[],
+                    status=404,
+                    message=str(e),
+                ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
+
     @route(
         "/api/v1/sevri/sevri-processes/byId/<int:sevri_process_id>",
         type="http",
@@ -174,25 +230,39 @@ class SevriProcessController(Controller):
     )
     def get_sevri_process_by_id(self, sevri_process_id):
         try:
-            sevri_process = request.env["sev.process"].sudo().search([("id", "=", sevri_process_id)], limit=1)
+            sevri_process = request.env["sev.process"].sudo().search(
+                [("id", "=", sevri_process_id)],
+                limit=1,
+            )
+
             if sevri_process:
-                sevri_process_res = SevriProcessService._parse_single_sevri_process(sevri_process)
+                sevri_process_res = SevriProcessService._parse_single_sevri_process(
+                    sevri_process
+                )
                 return Response(
                     create_json_response(data=sevri_process_res, status=200),
                     content_type="application/json;charset=utf-8",
                     status=200,
                 )
+
             return Response(
                 create_json_response(
-                    data=[], status=404, message="No sevri process found"
+                    data=[],
+                    status=404,
+                    message="No sevri process found",
                 ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )
+
         except Exception as e:
-            _logger.error(f"Error getting sevri process by id: {str(e)}")
+            _logger.error("Error getting sevri process by id: %s", str(e))
             return Response(
-                create_json_response(data=[], status=404, message=str(e)),
+                create_json_response(
+                    data=[],
+                    status=404,
+                    message=str(e),
+                ),
                 content_type="application/json;charset=utf-8",
                 status=404,
             )

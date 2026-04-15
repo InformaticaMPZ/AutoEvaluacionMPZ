@@ -15,7 +15,12 @@ function QuestionBadge({ question, numberBadge }: { question: Question, numberBa
     const selected = question.id === actualQuestion.id
     const answered = getQuestionAnswer(question, department_id, actualEvaluation.id) != null
     return (
-        <button type='button' onClick={() => setActualQuestion(question)} className={`py-1 px-2 rounded ${selected ? selected : answered ? answeredStyle : unansweredStyle} ${selected && selectedStyle}`}>
+        <button type='button' onClick={() => setActualQuestion(question)} className={`py-1 px-2 rounded ${selected
+                ? selectedStyle
+                : answered
+                    ? answeredStyle
+                    : unansweredStyle
+            }`}>
             {answered && !selected ? <BsCheck2Circle /> : numberBadge}
         </button>
     )

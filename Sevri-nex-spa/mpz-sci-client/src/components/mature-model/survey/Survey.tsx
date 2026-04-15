@@ -27,14 +27,23 @@ function Survey() {
   const [answersQueue, setAnswersQueue] = useState<AnswerQueueData[]>([])
   const { isOpen, onClose, onOpen } = useDisclosure()
   useEffect(() => {
-    setQuestionAnswer(getQuestionAnswer(actualQuestion, department_id, actualEvaluation.id))
-  }, [actualQuestion])
+    if (!actualQuestion || !actualEvaluation?.id) return;
+
+    setQuestionAnswer(
+      getQuestionAnswer(actualQuestion, department_id, actualEvaluation.id)
+    );
+  }, [actualQuestion, actualEvaluation]);
   useEffect(() => {
-    const question = actualEvaluation.sections.flatMap(section => section.questions).find(question => question.id === actualQuestion.id)
+    if (!actualEvaluation?.sections) return;
+
+    const question = actualEvaluation.sections
+      .flatMap(section => section.questions)
+      .find(q => q.id === actualQuestion.id);
+
     if (question) {
-      setActualQuestion(question)
+      setActualQuestion(question);
     }
-  }, [actualEvaluation])
+  }, [actualEvaluation]);
   const finishSurvey = async () => {
     const data: DepartmentEvaluation = {
       department_id: department_id,

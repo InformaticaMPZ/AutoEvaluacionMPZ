@@ -1,7 +1,15 @@
 import logging
-from ...shared.utils.date_util import date_to_string
+from datetime import date, datetime
 
 _logger = logging.getLogger(__name__)
+
+
+def date_to_string(value):
+    if not value:
+        return None
+    if isinstance(value, (date, datetime)):
+        return value.strftime("%Y-%m-%d")
+    return str(value)
 
 
 class ProposedActionService:
@@ -80,10 +88,12 @@ class ProposedActionService:
             return None
 
         attachments_data = kwargs.pop("attachments", [])
-        
-        existing_attachments = self.request.env["sev.attachment"].sudo().search([('proposed_action_id', '=', proposed_action.id)])
-        existing_attachments.unlink() 
-        
+
+        existing_attachments = self.request.env["sev.attachment"].sudo().search(
+            [('proposed_action_id', '=', proposed_action.id)]
+        )
+        existing_attachments.unlink()
+
         proposed_action.write(kwargs)
 
         for attachment_data in attachments_data:

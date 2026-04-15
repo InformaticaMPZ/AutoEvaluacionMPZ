@@ -4,7 +4,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
 }
 function Select({ label, ...selectProps }: SelectProps) {
-    const [field, meta] = useField<string>(selectProps.name || "");
+    const [field, meta] = useField<string>(selectProps.name as string);
     return (
         <div className="flex">
             <div className='block w-full'>

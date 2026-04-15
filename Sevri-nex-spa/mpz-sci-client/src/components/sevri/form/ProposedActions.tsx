@@ -5,11 +5,11 @@ import { useGlobalState } from "@/store/globalState"
 import { useSharedStore } from "@/store/shared/sharedStore"
 import type { Event, ProposedAction } from "@/types/sevri"
 import { showConfirmAlert, showInfoMixinAlert } from "@/utils"
-import { eventValidationSchema, proposedActionsValidationSchema } from "@/utils/schemas/sevri/eventForm"
+import { proposedActionsValidationSchema } from "@/utils/schemas/sevri/eventForm"
 import { ErrorMessage, Field, FieldArray } from "formik"
 import type React from "react"
 import { useState } from "react"
-import { BiArrowBack, BiSave, BiTrash, BiPlus, BiNotepad, BiCheckSquare, BiUser, BiCalendar } from "react-icons/bi"
+import { BiSave, BiTrash, BiPlus, BiNotepad, BiCheckSquare, BiUser, BiCalendar } from "react-icons/bi"
 import { FaArrowLeft } from "react-icons/fa"
 
 function ProposedActions({
@@ -19,8 +19,8 @@ function ProposedActions({
     handleSubmit
 }: {
     setFollowModule: React.Dispatch<React.SetStateAction<boolean>>
-    handleSubmit: (values: Event) => void
-    handleSubmitAndClose: (values: Event) => void
+    handleSubmit: (values: Event) => Promise<boolean> | boolean | void
+    handleSubmitAndClose: (values: Event) => Promise<void> | void
     values: Event
 }) {
     const { users } = useSharedStore()

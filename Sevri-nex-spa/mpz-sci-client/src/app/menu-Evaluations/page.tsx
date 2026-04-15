@@ -83,8 +83,7 @@ const Home = () => {
                   No hay procesos de evaluación por el momento
                 </p>
                 <p className="text-orange-300/70 mt-2">
-                  Las Evaluaciones disponibles aparecerán aquí cuando esténmj
-                  listas
+                  Las Evaluaciones disponibles aparecerán aquí cuando estén listas
                 </p>
               </div>
             </div>

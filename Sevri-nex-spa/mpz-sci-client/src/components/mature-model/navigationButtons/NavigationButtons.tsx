@@ -9,7 +9,9 @@ import { useGlobalState } from '@/store/globalState'
 
 function NavigationButtons() {
     const { actualEvaluation } = useEvaluationState()
-    const questionIds = actualEvaluation.sections.flatMap(section => section.questions.map(question => question.id))
+    const questionIds = actualEvaluation?.sections?.flatMap(
+        section => section.questions.map(question => question.id)
+    ) || []
     const { actualQuestion, setActualQuestion } = useSurveyState()
     const { department_id } = useGlobalState()
     const lastQuestion = getLastQuestionWithoutAnswer(actualEvaluation, department_id)

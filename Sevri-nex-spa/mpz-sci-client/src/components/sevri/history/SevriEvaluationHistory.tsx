@@ -40,7 +40,7 @@ function SevriEvaluationHistory({ evaluation }: { evaluation: SevriProcess }) {
     }
 
     const getImpactColor = (impact: number) => {
-        if (impact <= 1) return "success"
+        if (!impact || impact <= 1) return "success"
         if (impact === 2) return "warning"
         return "danger"
     }

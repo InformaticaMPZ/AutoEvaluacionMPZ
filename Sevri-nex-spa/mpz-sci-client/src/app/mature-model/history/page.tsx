@@ -23,7 +23,7 @@ export default function MatureModel() {
     fetchEvaluation();
   }, []);
 
-  const handleFilterChange = (e: any) => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
 
@@ -38,7 +38,7 @@ export default function MatureModel() {
 
   if (isLoading)
     return (
-      <section className={`mx-auto p-10 min-h-screen from-dark_primary-500 to-dark_primary-600 bg-gradient-to-b flex items-center justify-center text-white`}>
+      <section className="mx-auto p-10 min-h-screen from-dark_primary-500 to-dark_primary-600 bg-gradient-to-b flex items-center justify-center text-white">
         <h1 className="text-3xl text-center font-extrabold text-primary-600 w-full h-full mt-52">Cargando...</h1>
         <Loader />
       </section>
@@ -46,11 +46,11 @@ export default function MatureModel() {
 
   if (!isLoading && !historyEvaluations.length) {
     return (
-      <section className={`mx-auto p-10 min-h-screen from-dark_primary-500 to-dark_primary-600 bg-gradient-to-b flex items-center justify-center text-white`}>
+      <section className="mx-auto p-10 min-h-screen from-dark_primary-500 to-dark_primary-600 bg-gradient-to-b flex items-center justify-center text-white">
         <div className="block">
           <h2 className="text-lg font-bold">No hay datos por mostrar</h2>
           <div className="flex justify-center mt-2">
-            <Link href={"/menu-Evaluations/history"} className="px-4 py-2 bg-primary-700 text-white rounded hover:bg-primary-800 transition duration-300">
+            <Link href="/menu-Evaluations/history" className="px-4 py-2 bg-primary-700 text-white rounded hover:bg-primary-800 transition duration-300">
               <BiArrowBack />
             </Link>
           </div>
@@ -60,9 +60,9 @@ export default function MatureModel() {
   }
 
   return (
-    <section className={`mx-auto p-10 min-h-screen from-dark_primary-500 to-dark_primary-600 bg-gradient-to-b text-white`}>
+    <section className="mx-auto p-10 min-h-screen from-dark_primary-500 to-dark_primary-600 bg-gradient-to-b text-white">
       <div className="w-full flex justify-start mb-4">
-        <Link href={"/menu-Evaluations/history"} className="p-2 bg-primary-800 rounded transition-all hover:bg-primary-700 hover:rounded-none cursor-pointer">
+        <Link href="/menu-Evaluations/history" className="p-2 bg-primary-800 rounded transition-all hover:bg-primary-700 hover:rounded-none cursor-pointer">
           <BiArrowBack size={20} />
         </Link>
       </div>
@@ -85,7 +85,7 @@ export default function MatureModel() {
               <Link
                 key={index}
                 href={`history/${evaluation.id}`}
-                className={`bg-white hover:bg-slate-200 h-40 place-content-center rounded-md scale-95 hover:scale-100 ease-in-out duration-100 text-balance text-primary-800 font-semibold shadow-sm shadow-dark_primary-900 border-b-8 border-primary-400 hover:border-primary-800`}
+                className="bg-white hover:bg-slate-200 h-40 place-content-center rounded-md scale-95 hover:scale-100 ease-in-out duration-100 text-balance text-primary-800 font-semibold shadow-sm shadow-dark_primary-900 border-b-8 border-primary-400 hover:border-primary-800"
               >
                 <div className="flex flex-row justify-between items-center px-5">
                   <div className="flex flex-col">
